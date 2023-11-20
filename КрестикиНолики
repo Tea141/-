@@ -2,12 +2,12 @@ def pl_kr():
     shag=input('Номер ячейки, куда будем ставить крестик: ')
     if shag in hod or shag=='' or shag==' ' or int(shag)<1 or int(shag)>9:
         pl_kr()
-    hod.append(shag)
+    else: hod.append(shag)
 def pl_nol():
     shag=input('Номер ячейки, куда будем ставить нолик: ')
     if shag in hod or shag=='' or shag==' ' or int(shag)<1 or int(shag)>9:
         pl_nol()
-    hod.append(shag)
+    else: hod.append(shag)
 def zam_kr():
     nom_yach=int(hod[-1])
     if 0<nom_yach<4:
