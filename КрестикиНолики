@@ -1,39 +1,18 @@
-def pl_kr():
-    shag=input('Номер ячейки, куда будем ставить крестик: ')
-    if shag in hod or shag=='' or shag==' ' or int(shag)<1 or int(shag)>9:
-        pl_kr()
-    else: hod.append(shag)
-def pl_nol():
-    shag=input('Номер ячейки, куда будем ставить нолик: ')
-    if shag in hod or shag=='' or shag==' ' or int(shag)<1 or int(shag)>9:
-        pl_nol()
-    else: hod.append(shag)
-def zam_kr():
+def pl(s):
+    shag=input(f'Номер ячейки, куда будем ставить {s}: ')
+    if shag in hod or not shag.isdigit():pl(s)
+    elif int(shag)<1 or int(shag)>9:pl(s)
+    else:hod.append(shag)
+def zam(sim):
     nom_yach=int(hod[-1])
     if 0<nom_yach<4:
-        stroka1[nom_yach-1]='X'
+        stroka1[nom_yach-1]=sim
     elif 3<nom_yach<7:
-        stroka2[nom_yach-4]='X'
+        stroka2[nom_yach-4]=sim
     elif 6<nom_yach<10:
-        stroka3[nom_yach-7]='X'
+        stroka3[nom_yach-7]=sim
     print(f'{stroka1[0]} {stroka1[1]} {stroka1[2]}\n{stroka2[0]} {stroka2[1]} {stroka2[2]}\n{stroka3[0]} {stroka3[1]} {stroka3[2]}')
-def zam_nol():
-    nom_yach=int(hod[-1])
-    if 0<nom_yach<4:
-        stroka1[nom_yach-1] = 'O'
-    elif 3<nom_yach<7:
-        stroka2[nom_yach-4] = 'O'
-    elif 6<nom_yach<10:
-        stroka3[nom_yach-7] = 'O'
-    print(f'{stroka1[0]} {stroka1[1]} {stroka1[2]}\n{stroka2[0]} {stroka2[1]} {stroka2[2]}\n{stroka3[0]} {stroka3[1]} {stroka3[2]}')
-def check_win_kr():
-    if stroka1[0]==stroka1[1]==stroka1[2] or stroka2[0]==stroka2[1]==stroka2[2] or stroka3[0]==stroka3[1]==stroka3[2]:
-        return True
-    elif stroka1[0]==stroka2[0]==stroka3[0] or stroka1[1]==stroka2[1]==stroka3[1] or stroka1[2]==stroka2[2]==stroka3[2]:
-        return True
-    elif stroka1[0]==stroka2[1]==stroka3[2] or stroka1[2]==stroka2[1]==stroka3[0]:
-        return True
-def check_win_nol():
+def check_win(sim):
     if stroka1[0]==stroka1[1]==stroka1[2] or stroka2[0]==stroka2[1]==stroka2[2] or stroka3[0]==stroka3[1]==stroka3[2]:
         return True
     elif stroka1[0]==stroka2[0]==stroka3[0] or stroka1[1]==stroka2[1]==stroka3[1] or stroka1[2]==stroka2[2]==stroka3[2]:
@@ -46,21 +25,25 @@ stroka1=['1','2','3']
 stroka2=['4','5','6']
 stroka3=['7','8','9']
 setka = [stroka1,stroka2,stroka3]
+stroka=[[str(i+3*j+1) for i in range(3)] for j in range(3)]
+#print(f'{stroka[0][0]} {stroka[0][1]} {stroka[0][2]}\n{stroka[1][0]} {stroka[1][1]} {stroka[1][2]}\n{stroka[2][0]} {stroka[2][1]} {stroka[2][2]}')
 print(f'{stroka1[0]} {stroka1[1]} {stroka1[2]}\n{stroka2[0]} {stroka2[1]} {stroka2[2]}\n{stroka3[0]} {stroka3[1]} {stroka3[2]}')
 hod=[]
 for i in range(9):
     if i%2==0:
-        pl_kr()
-        zam_kr()
-        check_win_kr()
-        if check_win_kr()==True:
+        sim='X'
+        pl('крестик')
+        zam(sim)
+        check_win(sim)
+        if check_win(sim)==True:
             print(f'Выиграл {name_pl_kr}, поздравляем с победой!!!')
             break
     else:
-        pl_nol()
-        zam_nol()
-        check_win_nol()
-        if check_win_nol()==True:
+        sim=0
+        pl('нолик')
+        zam(sim)
+        check_win(sim)
+        if check_win(sim)==True:
             print(f'Выиграл {name_pl_nol}, поздравляем с победой!!!')
             break
 print('Игра окончена')
